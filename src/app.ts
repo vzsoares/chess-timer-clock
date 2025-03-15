@@ -22,9 +22,32 @@ window.chessTimer = () => {
         timerInterval: null as number | null,
         isFullscreen: false,
         lastMoveTime: 0,
+        wakeLock: null,
 
         init() {
             this.resetTimers();
+
+            // Add viewport meta tag for mobile responsiveness if not already present
+            if (!document.querySelector('meta[name="viewport"]')) {
+                const meta = document.createElement("meta");
+                meta.name = "viewport";
+                meta.content =
+                    "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no";
+                document.head.appendChild(meta);
+            }
+
+            // Prevent screen dimming/sleep during active games
+            this.setupWakeLock();
+
+            // Handle orientation changes
+            window.addEventListener("orientationchange", () => {
+                // Optional: You could adjust layout based on orientation
+                this.checkOrientation();
+            });
+
+            // Check orientation on init
+            this.checkOrientation();
+
             // Listen for keyboard shortcuts
             document.addEventListener("keydown", (e) => {
                 if (!this.isGameStarted) return;
@@ -63,6 +86,59 @@ window.chessTimer = () => {
                     this.toggleFullscreen();
                 }
             });
+            // Add touch event handling to prevent double-tap zoom on mobile
+            document.addEventListener(
+                "touchstart",
+                (e) => {
+                    if (this.isGameStarted) {
+                        // Prevent default behavior (zooming) when game is active
+                        if (e.touches.length > 1) {
+                            e.preventDefault();
+                        }
+                    }
+                },
+                { passive: false },
+            );
+        },
+
+        // New method to check and handle orientation
+        checkOrientation() {
+            // Optional: You could show a message if in portrait mode on phones
+            // or adjust layout based on orientation
+        },
+
+        // New method to prevent screen from sleeping during game
+        setupWakeLock() {
+            // Use the Screen Wake Lock API if available
+            if ("wakeLock" in navigator) {
+                // Request a wake lock when game starts
+                this.$watch("isGameRunning", (isRunning: boolean) => {
+                    if (isRunning) {
+                        this.requestWakeLock();
+                    } else {
+                        this.releaseWakeLock();
+                    }
+                });
+            }
+        },
+
+        async requestWakeLock() {
+            try {
+                if ("wakeLock" in navigator) {
+                    // @ts-ignore - TypeScript might not know about this API yet
+                    this.wakeLock = await navigator.wakeLock.request("screen");
+                }
+            } catch (err) {
+                console.log(`Wake Lock error: ${err.name}, ${err.message}`);
+            }
+        },
+
+        releaseWakeLock() {
+            if (this.wakeLock) {
+                this.wakeLock.release().then(() => {
+                    this.wakeLock = null;
+                });
+            }
         },
 
         resetTimers() {
@@ -98,7 +174,12 @@ window.chessTimer = () => {
         toggleTurn(player: number) {
             if (!this.isGameStarted) return;
 
+            // Add debounce to prevent accidental double taps on mobile
+            // Only process taps that are at least 300ms apart
             const now = Date.now();
+            if (now - this.lastMoveTime < 300) {
+                return;
+            }
 
             // If a player is already active, add increment to their time
             if (this.activePlayer && this.isGameRunning) {
@@ -119,6 +200,11 @@ window.chessTimer = () => {
 
             this.stopTimer();
             this.startTimer();
+
+            // Add haptic feedback if available
+            if (navigator.vibrate) {
+                navigator.vibrate(10); // Short vibration feedback on move
+            }
             this.lastMoveTime = now;
         },
 
@@ -191,17 +277,69 @@ window.chessTimer = () => {
 
         toggleFullscreen() {
             if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen().catch((err) => {
-                    console.error(
-                        `Error attempting to enable full-screen mode: ${err.message}`,
-                    );
-                });
+                const element = document.documentElement;
+
+                // First try the standard fullscreen API
+                if (element.requestFullscreen) {
+                    element.requestFullscreen().catch((err) => {
+                        console.error(
+                            `Error attempting to enable full-screen mode: ${err.message}`,
+                        );
+                    });
+                }
+                // Fallbacks for various browsers
+                // @ts-ignore - Vendor prefixed APIs
+                else if (element.webkitRequestFullscreen) {
+                    // @ts-ignore
+                    element.webkitRequestFullscreen();
+                    // @ts-ignore
+                } else if (element.mozRequestFullScreen) {
+                    // @ts-ignore
+                    element.mozRequestFullScreen();
+                    // @ts-ignore
+                } else if (element.msRequestFullscreen) {
+                    // @ts-ignore
+                    element.msRequestFullscreen();
+                }
+
                 this.isFullscreen = true;
+
+                // Lock to landscape if possible (for better mobile experience)
+                this.lockOrientation();
             } else {
                 if (document.exitFullscreen) {
                     document.exitFullscreen();
-                    this.isFullscreen = false;
+                    // @ts-ignore - Vendor prefixed APIs
+                } else if (document.webkitExitFullscreen) {
+                    // @ts-ignore
+                    document.webkitExitFullscreen();
+                    // @ts-ignore
+                } else if (document.mozCancelFullScreen) {
+                    // @ts-ignore
+                    document.mozCancelFullScreen();
+                    // @ts-ignore
+                } else if (document.msExitFullscreen) {
+                    // @ts-ignore
+                    document.msExitFullscreen();
                 }
+
+                this.isFullscreen = false;
+            }
+        },
+
+        // New method to lock screen orientation on mobile (if supported)
+        lockOrientation() {
+            // Try to lock to landscape for better chess timer experience on mobile
+            try {
+                // @ts-ignore - Screen orientation API
+                if (screen.orientation && screen.orientation.lock) {
+                    // @ts-ignore
+                    screen.orientation.lock("landscape").catch(() => {
+                        // Silently fail if not supported or permitted
+                    });
+                }
+            } catch (e) {
+                // Silently fail if not supported
             }
         },
     };

@@ -2,7 +2,10 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        />
         <title>Chess Timer</title>
         <link rel="stylesheet" href="styles.css" />
         <script type="module" src="app.ts"></script>
@@ -12,9 +15,33 @@
         />
         <style>
             @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap");
+
+            /* Prevent pull-to-refresh and overscroll behaviors */
+            body {
+                overscroll-behavior: none;
+                touch-action: manipulation;
+                -webkit-touch-callout: none;
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            /* Larger touch targets for mobile */
+            button {
+                min-height: 44px;
+                min-width: 44px;
+            }
+
+            /* Prevent text selection */
+            .no-select {
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
         </style>
     </head>
-    <body class="min-h-screen bg-gray-900 text-white font-['Roboto_Mono']">
+    <body
+        class="min-h-screen bg-gray-900 text-white font-['Roboto_Mono'] no-select"
+    >
         <div x-data="chessTimer" class="flex flex-col h-screen">
             <!-- Config Screen -->
             <div
@@ -30,7 +57,7 @@
                         <div class="flex gap-4 items-center">
                             <button
                                 @click="decreaseTime"
-                                class="bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded text-xl"
+                                class="bg-gray-700 hover:bg-gray-600 px-5 py-3 rounded text-xl"
                             >
                                 -
                             </button>
@@ -40,7 +67,7 @@
                             ></span>
                             <button
                                 @click="increaseTime"
-                                class="bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded text-xl"
+                                class="bg-gray-700 hover:bg-gray-600 px-5 py-3 rounded text-xl"
                             >
                                 +
                             </button>
@@ -52,7 +79,7 @@
                         <div class="flex gap-4 items-center">
                             <button
                                 @click="decreaseIncrement"
-                                class="bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded text-xl"
+                                class="bg-gray-700 hover:bg-gray-600 px-5 py-3 rounded text-xl"
                             >
                                 -
                             </button>
@@ -62,7 +89,7 @@
                             ></span>
                             <button
                                 @click="increaseIncrement"
-                                class="bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded text-xl"
+                                class="bg-gray-700 hover:bg-gray-600 px-5 py-3 rounded text-xl"
                             >
                                 +
                             </button>
@@ -71,7 +98,7 @@
 
                     <button
                         @click="startGame"
-                        class="w-full bg-white text-black hover:bg-gray-200 font-bold py-3 px-4 rounded-lg transition-colors mt-4"
+                        class="w-full bg-white text-black hover:bg-gray-200 font-bold py-4 px-4 rounded-lg transition-colors mt-4 text-xl"
                     >
                         START GAME
                     </button>
@@ -84,7 +111,7 @@
                 <button
                     @click="toggleTurn(1)"
                     :class="{'bg-gray-900': activePlayer !== 1, 'bg-gray-800': activePlayer === 1}"
-                    class="flex-1 flex items-center justify-center transition-all duration-300"
+                    class="flex-1 flex items-center justify-center transition-all duration-300 touch-manipulation"
                     :disabled="!isGameRunning || activePlayer === 2"
                 >
                     <div class="transform rotate-180">
@@ -97,41 +124,51 @@
 
                 <!-- Control Bar -->
                 <div
-                    class="bg-gray-800 flex items-center justify-between p-3 shadow-lg"
+                    class="bg-gray-800 flex items-center justify-between p-3 md:p-4 shadow-lg"
                 >
                     <button
                         @click="resetGame"
-                        class="bg-gray-700 hover:bg-gray-600 p-2 rounded-full"
+                        class="bg-gray-700 hover:bg-gray-600 p-3 rounded-full"
                     >
                         <i class="fas fa-undo text-xl"></i>
                     </button>
 
-                    <button
-                        @click="pauseResumeGame"
-                        class="bg-gray-700 hover:bg-gray-600 p-2 rounded-full mx-2"
-                    >
-                        <i
-                            :class="isGameRunning ? 'fa-pause' : 'fa-play'"
-                            class="fas text-xl"
-                        ></i>
-                    </button>
+                    <div class="flex items-center">
+                        <button
+                            @click="pauseResumeGame"
+                            class="bg-gray-700 hover:bg-gray-600 p-3 rounded-full mx-3"
+                        >
+                            <i
+                                :class="isGameRunning ? 'fa-pause' : 'fa-play'"
+                                class="fas text-xl"
+                            ></i>
+                        </button>
 
-                    <button
-                        @click="toggleFullscreen"
-                        class="bg-gray-700 hover:bg-gray-600 p-2 rounded-full"
-                    >
-                        <i
-                            :class="isFullscreen ? 'fa-compress' : 'fa-expand'"
-                            class="fas text-xl"
-                        ></i>
-                    </button>
+                        <button
+                            @click="toggleFullscreen"
+                            class="bg-gray-700 hover:bg-gray-600 p-3 rounded-full"
+                        >
+                            <i
+                                :class="isFullscreen ? 'fa-compress' : 'fa-expand'"
+                                class="fas text-xl"
+                            ></i>
+                        </button>
+                    </div>
+
+                    <!-- Player indicator -->
+                    <div class="px-3 py-2 rounded bg-gray-700">
+                        <span
+                            x-text="activePlayer === 1 ? 'BLACK' : 'WHITE'"
+                            class="font-bold"
+                        ></span>
+                    </div>
                 </div>
 
                 <!-- Player 2 (White) -->
                 <button
                     @click="toggleTurn(2)"
                     :class="{'bg-white text-black': true, 'opacity-80': activePlayer !== 2, 'opacity-100': activePlayer === 2}"
-                    class="flex-1 flex items-center justify-center transition-all duration-300"
+                    class="flex-1 flex items-center justify-center transition-all duration-300 touch-manipulation"
                     :disabled="!isGameRunning || activePlayer === 1"
                 >
                     <div
