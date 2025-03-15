@@ -17,7 +17,7 @@ A customizable chess clock and timer application for tracking game time. Perfect
 
 ## 🚀 Live Demo
 
-Try it now: [Chess Clock Timer](https://vzsoares.github.io/chess-clock-timer/)
+Try it now: [Chess Clock Timer](https://vzsoares.github.io/chess-timer-clock/)
 
 ## 🎮 How to Use
 
@@ -46,34 +46,18 @@ Try it now: [Chess Clock Timer](https://vzsoares.github.io/chess-clock-timer/)
 
 ### Setup
 
-1. Clone the repository:
-
 ```bash
-git clone https://github.com/vzsoares/chess-clock-timer.git
+# 1. Clone the repository:
+git clone https://github.com/vzsoares/chess-timer-clock.git
 cd chess-clock-timer
-```
 
-2. Install dependencies:
-
-```bash
-npm install
-# or
+# 2. Install dependencies:
 yarn install
-```
 
-3. Run development server:
-
-```bash
-npm run dev
-# or
+# 3. Run development server:
 yarn dev
-```
 
-4. Build for production:
-
-```bash
-npm run build
-# or
+# 4. Build for production:
 yarn build
 ```
 
