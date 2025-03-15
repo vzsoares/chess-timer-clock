@@ -22,10 +22,10 @@ window.chessTimer = () => {
         player1Increment: 2, // seconds
         player2Increment: 2, // seconds
         player1Time: 0, // milliseconds
-        // Add move counters for each player
+        player2Time: 0, // milliseconds
+        // Add move counters for each player with explicit initialization
         player1Moves: 0,
         player2Moves: 0,
-        player2Time: 0, // milliseconds
         timerInterval: null as number | null,
         isFullscreen: false,
         lastMoveTime: 0,
