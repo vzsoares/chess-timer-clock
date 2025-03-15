@@ -72,7 +72,7 @@ window.chessTimer = () => {
                 // Space bar to pause/resume
                 if (e.code === "Space") {
                     e.preventDefault();
-                    this.pauseResumeGame();
+                    this.toggleTurn();
                 }
 
                 // Up arrow for Player 1
@@ -208,13 +208,8 @@ window.chessTimer = () => {
         },
 
         // Modified toggleTurn to use player-specific increments
-        toggleTurn(player: number) {
+        toggleTurn(_player?: number) {
             if (!this.isGameStarted) return;
-
-            // Return if the player is not the active player (can't press opponent's button)
-            if (this.activePlayer !== player) {
-                return;
-            }
 
             const now = Date.now();
             // Add debounce to prevent accidental double taps on mobile
