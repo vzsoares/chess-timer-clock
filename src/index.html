@@ -6,7 +6,42 @@
             name="viewport"
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
         />
-        <title>Chess Timer</title>
+        <title>Chess Timer - Digital Clock for Chess Games - Free Online</title>
+        <meta
+            name="description"
+            content="A customizable chess clock timer with independent time controls, increment settings, and fullscreen mode for tournament and casual chess games."
+        />
+        <meta
+            name="keywords"
+            content="chess timer, chess clock, chess game timer, digital chess clock, chess increment timer"
+        />
+        <meta name="author" content="Chess Timer App" />
+
+        <!-- Open Graph meta tags for social sharing -->
+        <meta
+            property="og:title"
+            content="Chess Timer - Digital Clock for Chess Games"
+        />
+        <meta
+            property="og:description"
+            content="Customizable chess clock with independent time controls and increment settings."
+        />
+        <meta property="og:type" content="website" />
+        <meta
+            property="og:url"
+            content="https://vzsoares.github.io/chess-timer-clock/"
+        />
+        <meta
+            property="og:image"
+            content="https://vzsoares.github.io/chess-timer-clock/"
+        />
+
+        <!-- Canonical URL -->
+        <link
+            rel="canonical"
+            href="https://vzsoares.github.io/chess-timer-clock/"
+        />
+
         <link rel="stylesheet" href="styles.css" />
         <script type="module" src="app.ts"></script>
         <link
@@ -42,234 +77,188 @@
     <body
         class="min-h-screen bg-gray-900 text-white font-['Roboto_Mono'] no-select"
     >
-        <div x-data="chessTimer" class="flex flex-col h-screen">
-            <!-- Config Screen -->
-            <div
-                x-show="!isGameStarted"
-                class="flex flex-col items-center justify-center h-full p-4"
-            >
-                <h1 class="text-4xl font-bold mb-8">Chess Timer</h1>
+        <header>
+            <h1 class="sr-only">Chess Timer - Digital Clock for Chess Games</h1>
+        </header>
+        <main>
+            <div x-data="chessTimer" class="flex flex-col h-screen">
+                <!-- Config Screen -->
                 <div
-                    class="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md"
+                    x-show="!isGameStarted"
+                    class="flex flex-col items-center justify-center h-full p-4"
                 >
-                    <!-- Toggle for independent time controls -->
-                    <div class="mb-6 flex items-center">
-                        <label class="flex items-center cursor-pointer">
-                            <div class="relative">
-                                <input
-                                    type="checkbox"
-                                    x-model="independentTimeControls"
-                                    class="sr-only"
-                                />
-                                <div
-                                    class="block bg-gray-600 w-14 h-8 rounded-full"
-                                ></div>
-                                <div
-                                    class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition transform"
-                                    :class="independentTimeControls ? 'translate-x-6' : ''"
-                                ></div>
-                            </div>
-                            <div class="ml-3 text-white font-medium">
-                                Independent Time Controls
-                            </div>
-                        </label>
-                    </div>
-
-                    <!-- Player 1 (Black) Settings -->
-                    <div class="mb-6 border-l-4 border-gray-700 pl-3">
-                        <h3
-                            class="font-bold mb-3"
-                            x-text="independentTimeControls ? 'Black Player' : 'Both Players'"
-                        ></h3>
-                        <div class="mb-4">
-                            <label class="block mb-2">Time (minutes)</label>
-                            <div class="flex gap-4 items-center">
-                                <button
-                                    @click="decreasePlayer1Time"
-                                    class="bg-gray-700 hover:bg-gray-600 px-5 py-3 rounded text-xl"
-                                >
-                                    -
-                                </button>
-                                <span
-                                    class="text-2xl font-bold"
-                                    x-text="player1Minutes"
-                                ></span>
-                                <button
-                                    @click="increasePlayer1Time"
-                                    class="bg-gray-700 hover:bg-gray-600 px-5 py-3 rounded text-xl"
-                                >
-                                    +
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="block mb-2"
-                                >Increment (seconds)</label
-                            >
-                            <div class="flex gap-4 items-center">
-                                <button
-                                    @click="decreasePlayer1Increment"
-                                    class="bg-gray-700 hover:bg-gray-600 px-5 py-3 rounded text-xl"
-                                >
-                                    -
-                                </button>
-                                <span
-                                    class="text-2xl font-bold"
-                                    x-text="player1Increment"
-                                ></span>
-                                <button
-                                    @click="increasePlayer1Increment"
-                                    class="bg-gray-700 hover:bg-gray-600 px-5 py-3 rounded text-xl"
-                                >
-                                    +
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Player 2 (White) Settings - Only show when independent time controls are enabled -->
+                    <h2 class="text-4xl font-bold mb-8">Chess Timer</h2>
                     <div
-                        x-show="independentTimeControls"
-                        class="mb-6 border-l-4 border-white pl-3"
+                        class="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md"
+                        aria-label="Timer configuration panel"
                     >
-                        <h3 class="font-bold mb-3">White Player</h3>
-                        <div class="mb-4">
-                            <label class="block mb-2">Time (minutes)</label>
-                            <div class="flex gap-4 items-center">
-                                <button
-                                    @click="decreasePlayer2Time"
-                                    class="bg-gray-700 hover:bg-gray-600 px-5 py-3 rounded text-xl"
+                        <!-- Toggle for independent time controls -->
+                        <div class="mb-6 flex items-center">
+                            <label class="flex items-center cursor-pointer">
+                                <div class="relative">
+                                    <input
+                                        type="checkbox"
+                                        x-model="independentTimeControls"
+                                        class="sr-only"
+                                    />
+                                    <div
+                                        class="block bg-gray-600 w-14 h-8 rounded-full"
+                                    ></div>
+                                    <div
+                                        class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition transform"
+                                        :class="independentTimeControls ? 'translate-x-6' : ''"
+                                    ></div>
+                                </div>
+                                <div class="ml-3 text-white font-medium">
+                                    Independent Time Controls
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Player 1 (Black) Settings -->
+                        <div class="mb-6 border-l-4 border-gray-700 pl-3">
+                            <h3
+                                class="font-bold mb-3"
+                                x-text="independentTimeControls ? 'Black Player' : 'Both Players'"
+                            ></h3>
+                            <div class="mb-4">
+                                <label class="block mb-2">Time (minutes)</label>
+                                <div class="flex gap-4 items-center">
+                                    <button
+                                        @click="decreasePlayer1Time"
+                                        class="bg-gray-700 hover:bg-gray-600 px-5 py-3 rounded text-xl"
+                                    >
+                                        -
+                                    </button>
+                                    <span
+                                        class="text-2xl font-bold"
+                                        x-text="player1Minutes"
+                                    ></span>
+                                    <button
+                                        @click="increasePlayer1Time"
+                                        class="bg-gray-700 hover:bg-gray-600 px-5 py-3 rounded text-xl"
+                                    >
+                                        +
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="block mb-2"
+                                    >Increment (seconds)</label
                                 >
-                                    -
-                                </button>
-                                <span
-                                    class="text-2xl font-bold"
-                                    x-text="player2Minutes"
-                                ></span>
-                                <button
-                                    @click="increasePlayer2Time"
-                                    class="bg-gray-700 hover:bg-gray-600 px-5 py-3 rounded text-xl"
-                                >
-                                    +
-                                </button>
+                                <div class="flex gap-4 items-center">
+                                    <button
+                                        @click="decreasePlayer1Increment"
+                                        class="bg-gray-700 hover:bg-gray-600 px-5 py-3 rounded text-xl"
+                                    >
+                                        -
+                                    </button>
+                                    <span
+                                        class="text-2xl font-bold"
+                                        x-text="player1Increment"
+                                    ></span>
+                                    <button
+                                        @click="increasePlayer1Increment"
+                                        class="bg-gray-700 hover:bg-gray-600 px-5 py-3 rounded text-xl"
+                                    >
+                                        +
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="mb-4">
-                            <label class="block mb-2"
-                                >Increment (seconds)</label
-                            >
-                            <div class="flex gap-4 items-center">
-                                <button
-                                    @click="decreasePlayer2Increment"
-                                    class="bg-gray-700 hover:bg-gray-600 px-5 py-3 rounded text-xl"
+                        <!-- Player 2 (White) Settings - Only show when independent time controls are enabled -->
+                        <div
+                            x-show="independentTimeControls"
+                            class="mb-6 border-l-4 border-white pl-3"
+                        >
+                            <h3 class="font-bold mb-3">White Player</h3>
+                            <div class="mb-4">
+                                <label class="block mb-2">Time (minutes)</label>
+                                <div class="flex gap-4 items-center">
+                                    <button
+                                        @click="decreasePlayer2Time"
+                                        class="bg-gray-700 hover:bg-gray-600 px-5 py-3 rounded text-xl"
+                                    >
+                                        -
+                                    </button>
+                                    <span
+                                        class="text-2xl font-bold"
+                                        x-text="player2Minutes"
+                                    ></span>
+                                    <button
+                                        @click="increasePlayer2Time"
+                                        class="bg-gray-700 hover:bg-gray-600 px-5 py-3 rounded text-xl"
+                                    >
+                                        +
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="block mb-2"
+                                    >Increment (seconds)</label
                                 >
-                                    -
-                                </button>
-                                <span
-                                    class="text-2xl font-bold"
-                                    x-text="player2Increment"
-                                ></span>
-                                <button
-                                    @click="increasePlayer2Increment"
-                                    class="bg-gray-700 hover:bg-gray-600 px-5 py-3 rounded text-xl"
-                                >
-                                    +
-                                </button>
+                                <div class="flex gap-4 items-center">
+                                    <button
+                                        @click="decreasePlayer2Increment"
+                                        class="bg-gray-700 hover:bg-gray-600 px-5 py-3 rounded text-xl"
+                                    >
+                                        -
+                                    </button>
+                                    <span
+                                        class="text-2xl font-bold"
+                                        x-text="player2Increment"
+                                    ></span>
+                                    <button
+                                        @click="increasePlayer2Increment"
+                                        class="bg-gray-700 hover:bg-gray-600 px-5 py-3 rounded text-xl"
+                                    >
+                                        +
+                                    </button>
+                                </div>
                             </div>
                         </div>
+
+                        <button
+                            @click="startGame"
+                            class="w-full bg-white text-black hover:bg-gray-200 font-bold py-4 px-4 rounded-lg transition-colors mt-4 text-xl"
+                        >
+                            START GAME
+                        </button>
                     </div>
-
-                    <button
-                        @click="startGame"
-                        class="w-full bg-white text-black hover:bg-gray-200 font-bold py-4 px-4 rounded-lg transition-colors mt-4 text-xl"
-                    >
-                        START GAME
-                    </button>
                 </div>
-            </div>
 
-            <!-- Game Screen -->
-            <div
-                x-show="isGameStarted"
-                class="h-full flex flex-col md:flex-row"
-            >
-                <!-- Player 1 (Black) -->
-                <button
-                    @click="toggleTurn(1)"
-                    :class="{'bg-gray-900': activePlayer !== 1, 'bg-gray-800': activePlayer === 1}"
-                    class="flex-1 flex items-center justify-center transition-all duration-300 touch-manipulation md:relative"
-                    :disabled="!isGameRunning || activePlayer === 2"
+                <!-- Game Screen -->
+                <div
+                    x-show="isGameStarted"
+                    class="h-full flex flex-col md:flex-row"
                 >
-                    <div
-                        class="transform md:transform-none md:rotate-0 rotate-180"
+                    <!-- Player 1 (Black) -->
+                    <button
+                        @click="toggleTurn(1)"
+                        :class="{'bg-gray-900': activePlayer !== 1, 'bg-gray-800': activePlayer === 1}"
+                        class="flex-1 flex items-center justify-center transition-all duration-300 touch-manipulation md:relative"
+                        :disabled="!isGameRunning || activePlayer === 2"
                     >
                         <div
-                            class="text-6xl md:text-8xl font-bold"
-                            x-text="formatTime(player1Time)"
-                        ></div>
-                        <div class="text-center text-gray-400 mt-2">
-                            Moves: <span x-text="player1Moves"></span>
+                            class="transform md:transform-none md:rotate-0 rotate-180"
+                        >
+                            <div
+                                class="text-6xl md:text-8xl font-bold"
+                                x-text="formatTime(player1Time)"
+                            ></div>
+                            <div class="text-center text-gray-400 mt-2">
+                                Moves: <span x-text="player1Moves"></span>
+                            </div>
                         </div>
-                    </div>
-                </button>
-
-                <!-- Control Bar - For mobile (stacked layout) -->
-                <div
-                    class="bg-gray-800 flex md:hidden items-center justify-between p-3 md:p-4 shadow-lg"
-                >
-                    <button
-                        @click="resetGame"
-                        class="bg-gray-700 hover:bg-gray-600 p-3 rounded-full"
-                    >
-                        <i class="fas fa-undo text-xl"></i>
                     </button>
 
-                    <div class="flex items-center">
-                        <button
-                            @click="pauseResumeGame"
-                            class="bg-gray-700 hover:bg-gray-600 p-3 rounded-full mx-2"
-                        >
-                            <i
-                                :class="isGameRunning ? 'fa-pause' : 'fa-play'"
-                                class="fas text-xl"
-                            ></i>
-                        </button>
-
-                        <button
-                            @click="toggleFullscreen"
-                            class="bg-gray-700 hover:bg-gray-600 p-3 rounded-full mx-2"
-                        >
-                            <i
-                                :class="isFullscreen ? 'fa-compress' : 'fa-expand'"
-                                class="fas text-xl"
-                            ></i>
-                        </button>
-                    </div>
-
-                    <!-- Player indicator -->
-                    <div class="px-3 py-2 rounded bg-gray-700">
-                        <span
-                            x-text="activePlayer === 1 ? 'BLACK' : 'WHITE'"
-                            class="font-bold"
-                        ></span>
-                    </div>
-                </div>
-
-                <!-- Control Bar - For desktop (centered) -->
-                <div
-                    class="hidden md:flex flex-col justify-center items-center bg-gray-800 px-6 py-8 shadow-lg z-10"
-                >
-                    <!-- Player indicator - Top -->
-                    <div class="mb-6 px-4 py-2 rounded bg-gray-700">
-                        <span
-                            x-text="activePlayer === 1 ? 'BLACK' : 'WHITE'"
-                            class="font-bold"
-                        ></span>
-                    </div>
-
-                    <div class="flex flex-col gap-4">
+                    <!-- Control Bar - For mobile (stacked layout) -->
+                    <div
+                        class="bg-gray-800 flex md:hidden items-center justify-between p-3 md:p-4 shadow-lg"
+                    >
                         <button
                             @click="resetGame"
                             class="bg-gray-700 hover:bg-gray-600 p-3 rounded-full"
@@ -277,47 +266,122 @@
                             <i class="fas fa-undo text-xl"></i>
                         </button>
 
-                        <button
-                            @click="pauseResumeGame"
-                            class="bg-gray-700 hover:bg-gray-600 p-3 rounded-full"
-                        >
-                            <i
-                                :class="isGameRunning ? 'fa-pause' : 'fa-play'"
-                                class="fas text-xl"
-                            ></i>
-                        </button>
+                        <div class="flex items-center">
+                            <button
+                                @click="pauseResumeGame"
+                                class="bg-gray-700 hover:bg-gray-600 p-3 rounded-full mx-2"
+                            >
+                                <i
+                                    :class="isGameRunning ? 'fa-pause' : 'fa-play'"
+                                    class="fas text-xl"
+                                ></i>
+                            </button>
 
-                        <button
-                            @click="toggleFullscreen"
-                            class="bg-gray-700 hover:bg-gray-600 p-3 rounded-full"
-                        >
-                            <i
-                                :class="isFullscreen ? 'fa-compress' : 'fa-expand'"
-                                class="fas text-xl"
-                            ></i>
-                        </button>
-                    </div>
-                </div>
+                            <button
+                                @click="toggleFullscreen"
+                                class="bg-gray-700 hover:bg-gray-600 p-3 rounded-full mx-2"
+                            >
+                                <i
+                                    :class="isFullscreen ? 'fa-compress' : 'fa-expand'"
+                                    class="fas text-xl"
+                                ></i>
+                            </button>
+                        </div>
 
-                <!-- Player 2 (White) -->
-                <button
-                    @click="toggleTurn(2)"
-                    :class="{'bg-white text-black': true, 'opacity-80': activePlayer !== 2, 'opacity-100': activePlayer === 2}"
-                    class="flex-1 flex items-center justify-center transition-all duration-300 touch-manipulation"
-                    :disabled="!isGameRunning || activePlayer === 1"
-                >
-                    <div>
-                        <div
-                            class="text-6xl md:text-8xl font-bold"
-                            x-text="formatTime(player2Time)"
-                        ></div>
-                        <!-- Add move counter for White player -->
-                        <div class="text-center text-gray-600 mt-2">
-                            Moves: <span x-text="player2Moves"></span>
+                        <!-- Player indicator -->
+                        <div class="px-3 py-2 rounded bg-gray-700">
+                            <span
+                                x-text="activePlayer === 1 ? 'BLACK' : 'WHITE'"
+                                class="font-bold"
+                            ></span>
                         </div>
                     </div>
-                </button>
+
+                    <!-- Control Bar - For desktop (centered) -->
+                    <div
+                        class="hidden md:flex flex-col justify-center items-center bg-gray-800 px-6 py-8 shadow-lg z-10"
+                    >
+                        <!-- Player indicator - Top -->
+                        <div class="mb-6 px-4 py-2 rounded bg-gray-700">
+                            <span
+                                x-text="activePlayer === 1 ? 'BLACK' : 'WHITE'"
+                                class="font-bold"
+                            ></span>
+                        </div>
+
+                        <div class="flex flex-col gap-4">
+                            <button
+                                @click="resetGame"
+                                class="bg-gray-700 hover:bg-gray-600 p-3 rounded-full"
+                            >
+                                <i class="fas fa-undo text-xl"></i>
+                            </button>
+
+                            <button
+                                @click="pauseResumeGame"
+                                class="bg-gray-700 hover:bg-gray-600 p-3 rounded-full"
+                            >
+                                <i
+                                    :class="isGameRunning ? 'fa-pause' : 'fa-play'"
+                                    class="fas text-xl"
+                                ></i>
+                            </button>
+
+                            <button
+                                @click="toggleFullscreen"
+                                class="bg-gray-700 hover:bg-gray-600 p-3 rounded-full"
+                            >
+                                <i
+                                    :class="isFullscreen ? 'fa-compress' : 'fa-expand'"
+                                    class="fas text-xl"
+                                ></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Player 2 (White) -->
+                    <button
+                        @click="toggleTurn(2)"
+                        :class="{'bg-white text-black': true, 'opacity-80': activePlayer !== 2, 'opacity-100': activePlayer === 2}"
+                        class="flex-1 flex items-center justify-center transition-all duration-300 touch-manipulation"
+                        :disabled="!isGameRunning || activePlayer === 1"
+                    >
+                        <div>
+                            <div
+                                class="text-6xl md:text-8xl font-bold"
+                                x-text="formatTime(player2Time)"
+                            ></div>
+                            <!-- Add move counter for White player -->
+                            <div class="text-center text-gray-600 mt-2">
+                                Moves: <span x-text="player2Moves"></span>
+                            </div>
+                        </div>
+                    </button>
+                </div>
             </div>
-        </div>
+        </main>
+        <footer class="sr-only">
+            <p>
+                Chess Timer - A digital chess clock application for chess
+                players
+            </p>
+        </footer>
+
+        <!-- Structured data for SEO -->
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "SoftwareApplication",
+                "name": "Chess Timer",
+                "description": "A customizable chess clock timer with independent time controls and increment settings for chess games.",
+                "applicationCategory": "GameApplication",
+                "operatingSystem": "Web",
+                "offers": {
+                    "@type": "Offer",
+                    "price": "0.00",
+                    "priceCurrency": "USD"
+                }
+            }
+        </script>
     </body>
 </html>
