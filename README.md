@@ -1,119 +1,97 @@
-# 🌿 Colorless Green Ideas Ipsum Generator
+# ⏱️ Chess Clock Timer
 
-![Language](https://img.shields.io/badge/language-TypeScript%20%7C%20JavaScript-blue)
+![Language](https://img.shields.io/badge/language-TypeScript%20%7C%20AlpineJS-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
-![Status](https://img.shields.io/badge/status-philosophical-purple)
+![Status](https://img.shields.io/badge/status-active-brightgreen)
 
-> "Colorless green ideas sleep furiously" - _Noam Chomsky_
-
-A sophisticated nonsensical text generator inspired by Chomsky's famous example of a grammatically correct but semantically meaningless sentence. When you need placeholder text that challenges perception and ignites intellectual curiosity, reach for this instead of Lorem Ipsum.
-
-![Colorless Green Ideas Ipsum Generator Preview](/static/preview.png)
-
-### Sample Output
-
-> Teleological phenomena of metaphysical dialectics systematize intrinsically. Epistemologically, transparent axioms meditate. Dialectical epistemologies reify the qualia of being. Ontological monads subsume, notwithstanding phenomenological axioms particularize heuristically.
->
-> Apophatic frameworks deterritorialize categorically. Transcendental noumena of hermeneutic quiddities presuppose intrinsically. Metaphysical abstractions ontologize, ergo solipsistic essences sublimate apodictically. Phenomenologically, noumenal aporia delineate.
+A customizable chess clock and timer application for tracking game time. Perfect for chess players of all levels who need a reliable, easy-to-use timer with flexible time control options.
 
 ## ✨ Features
 
-- **Semantically Absurd**: Generates grammatically correct but meaningfully vacant prose
-- **Philosophically Rich**: Employs vocabulary from epistemology, ontology, phenomenology & more
-- **Customizable Output**: Control paragraph count and sentence density
-- **Multiple Sentence Patterns**: Creates varied text structures following linguistic rules
-- **Available as NPM package**: Easy integration into any JavaScript project
-- **Web Interface**: Simple UI for generating text directly in the browser
+- **Multiple Time Control Modes**: Support for various chess time formats (classical, rapid, blitz, etc.)
+- **Customizable Settings**: Adjust time, increment, and delay settings to your preference
+- **Responsive Design**: Works seamlessly on desktops, tablets, and mobile devices
+- **Simple Interface**: Easy-to-use controls designed for minimal distraction during gameplay
+- **Visual & Audio Alerts**: Clear notifications when time is running low
+- **Offline Functionality**: No internet connection required after initial load
 
 ## 🚀 Live Demo
 
-Try it now: [Colorless Green Ideas Ipsum Generator](https://vzsoares.github.io/colorless-green-ideas-sleep-furiously-ipsum/)
+Try it now: [Chess Clock Timer](https://vzsoares.github.io/chess-clock-timer/)
 
-## 📋 Usage Examples
+## 🎮 How to Use
 
-### NPM Package
+1. **Configure Time Settings**:
 
-Install the [package](https://www.npmjs.com/package/colorless-green-ipsum):
+    - Set initial time for both players
+    - Choose increment or delay if desired
+    - Select any additional options
 
-```bash
-npm install colorless-green-ipsum
-# or
-yarn add colorless-green-ipsum
-```
+2. **Start the Clock**:
 
-Use in your project:
+    - Press the start button or spacebar
+    - Tap your timer after making a move to switch to your opponent's time
 
-```typescript
-// ESM
-import { ColorlessGreenIpsum } from "colorless-green-ipsum";
+3. **During Play**:
+    - Pause/resume as needed
+    - Reset the clock for a new game
+    - Adjust settings at any time
 
-// CommonJS
-const { ColorlessGreenIpsum } = require("colorless-green-ipsum");
+## 🔧 Development
 
-// Create a new generator instance
-const generator = new ColorlessGreenIpsum();
+### Prerequisites
 
-// Generate 3 paragraphs with 4 sentences each
-const philosophicalNonsense = generator.generate(3, 4);
-console.log(philosophicalNonsense);
-```
+- Node.js (v14+)
+- npm or yarn
 
-Custom styles usage: 
-
-```typescript
-// Create a generator
-const generator = new ColorlessGreenIpsumGenerator();
-
-// Add a custom "technical" style
-generator.addCustomStyle("technical", {
-  adjectives: ["digital", "algorithmic", "computational", "binary", "encrypted", "quantum", "neural"],
-  nouns: ["networks", "protocols", "algorithms", "processors", "databases", "architectures", "interfaces"],
-  verbs: ["compute", "process", "optimize", "integrate", "compile", "debug", "implement"]
-  // Note: adverbs and conjunctions will use erudite defaults
-});
-
-// Set to the new style
-generator.setStyle("technical");
-
-// Generate text using the technical style
-const technicalText = generator.generate(2, 3);
-
-// List all available styles (including custom ones)
-const styles = generator.getAvailableStyles(); 
-// ['common', 'erudite', 'whimsical', 'technical']
-
-// Remove the custom style when no longer needed
-generator.removeCustomStyle("technical");
-```
-
-## 🔧 Dev
+### Setup
 
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/colorless-green-ipsum.git
+git clone https://github.com/vzsoares/chess-clock-timer.git
+cd chess-clock-timer
 ```
 
-2. Run dev script:
+2. Install dependencies:
 
 ```bash
-yarn dev:www
+npm install
+# or
+yarn install
 ```
+
+3. Run development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+4. Build for production:
+
+```bash
+npm run build
+# or
+yarn build
+```
+
+## 🛠️ Tech Stack
+
+- **TypeScript**: For type-safe code
+- **Alpine.js**: Lightweight JavaScript framework for reactivity
+- **TailwindCSS**: Utility-first CSS framework
+- **Vite**: Next-generation frontend tooling
 
 ## 🤝 Contributing
 
 Contributions are welcome! Feel free to:
 
-- Add new philosophical terms to the word banks
-- Improve sentence patterns for more variety
-- Enhance the UI/UX
-- Submit bugs and feature requests
-
-## 📚 Further Reading
-
-- [Colorless Green Ideas Sleep Furiously](https://en.wikipedia.org/wiki/Colorless_green_ideas_sleep_furiously) - Wikipedia
-- [Syntactic Structures](https://en.wikipedia.org/wiki/Syntactic_Structures) - Noam Chomsky's groundbreaking work
-- [Philosophy of Language](https://plato.stanford.edu/entries/language-philosophy/) - Stanford Encyclopedia of Philosophy
+- Report bugs and issues
+- Suggest new features
+- Submit pull requests
+- Improve documentation
 
 ## 📄 License
 
@@ -121,4 +99,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ---
 
-_Created with paradoxical intent and metaphysical purpose._
+_Created by [vzsoares](https://github.com/vzsoares)_
