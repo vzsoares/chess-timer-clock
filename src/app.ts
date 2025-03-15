@@ -441,7 +441,7 @@ window.chessTimer = () => {
                 // @ts-ignore - Screen orientation API
                 if (screen.orientation && screen.orientation.lock) {
                     // @ts-ignore
-                    screen.orientation.lock("landscape").catch(() => {
+                    screen.orientation.lock("portrait").catch(() => {
                         // Silently fail if not supported or permitted
                     });
                 }
