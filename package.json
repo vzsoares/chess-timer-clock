@@ -3,9 +3,9 @@
     "version": "0.1.0",
     "description": "A customizable chess clock and timer application for tracking game time",
     "scripts": {
-        "dev": "cd src && vite",
-        "build": "cd src && vite build --base='/chess-timer-clock' --outDir ../dist",
-        "preview": "cd src && vite preview --outDir ../dist",
+        "dev": "vite",
+        "build": "vite build --base='/chess-timer-clock'",
+        "preview": "vite preview",
         "test": "jest"
     },
     "keywords": [
