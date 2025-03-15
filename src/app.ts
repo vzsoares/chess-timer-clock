@@ -22,6 +22,9 @@ window.chessTimer = () => {
         player1Increment: 2, // seconds
         player2Increment: 2, // seconds
         player1Time: 0, // milliseconds
+        // Add move counters for each player
+        player1Moves: 0,
+        player2Moves: 0,
         player2Time: 0, // milliseconds
         timerInterval: null as number | null,
         isFullscreen: false,
@@ -163,6 +166,9 @@ window.chessTimer = () => {
         resetTimers() {
             // Use individual time settings for each player
             this.player1Time = this.player1Minutes * 60 * 1000;
+            // Reset move counters
+            this.player1Moves = 0;
+            this.player2Moves = 0;
             this.player2Time = this.player2Minutes * 60 * 1000;
         },
 
@@ -207,7 +213,7 @@ window.chessTimer = () => {
             }
         },
 
-        // Modified toggleTurn to use player-specific increments
+        // Modified toggleTurn to use player-specific increments and count moves
         toggleTurn(_player?: number) {
             if (!this.isGameStarted) return;
 
@@ -217,16 +223,20 @@ window.chessTimer = () => {
                 return;
             }
 
-            // Add increment to the current player's time before switching
+            // Add increment to the current player's time before switching and count the move
             if (this.isGameRunning) {
                 if (this.activePlayer === 1) {
                     // Use player1's specific increment
                     this.player1Time += this.player1Increment * 1000;
+                    // Increment the move counter for player 1
+                    this.player1Moves++;
                     // Switch to player 2
                     this.activePlayer = 2;
                 } else {
                     // Use player2's specific increment
                     this.player2Time += this.player2Increment * 1000;
+                    // Increment the move counter for player 2
+                    this.player2Moves++;
                     // Switch to player 1
                     this.activePlayer = 1;
                 }

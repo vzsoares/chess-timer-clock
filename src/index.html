@@ -208,7 +208,11 @@
                         <div
                             class="text-6xl md:text-8xl font-bold"
                             x-text="formatTime(player1Time)"
-                        ></div>
+                        >
+                            <div class="text-center text-gray-400 mt-2">
+                                Moves: <span x-text="player1Moves"></span>
+                            </div>
+                        </div>
                     </div>
                 </button>
 
@@ -303,10 +307,16 @@
                     class="flex-1 flex items-center justify-center transition-all duration-300 touch-manipulation"
                     :disabled="!isGameRunning || activePlayer === 1"
                 >
-                    <div
-                        class="text-6xl md:text-8xl font-bold"
-                        x-text="formatTime(player2Time)"
-                    ></div>
+                    <div>
+                        <div
+                            class="text-6xl md:text-8xl font-bold"
+                            x-text="formatTime(player2Time)"
+                        ></div>
+                        <!-- Add move counter for White player -->
+                        <div class="text-center text-gray-600 mt-2">
+                            Moves: <span x-text="player2Moves"></span>
+                        </div>
+                    </div>
                 </button>
             </div>
         </div>
