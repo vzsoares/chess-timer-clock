@@ -163,7 +163,6 @@ window.chessTimer = () => {
             this.resetTimers();
         },
 
-        // TODO start the game with White
         // TODO allow different time config for each player
         // Add a new method to return to the configuration screen
         backToConfig() {
