@@ -151,7 +151,7 @@ window.chessTimer = () => {
         startGame() {
             this.resetTimers();
             this.isGameStarted = true;
-            this.activePlayer = 1; // Start with player 1 (typically white in chess)
+            this.activePlayer = 2; // Start with player 1 (typically white in chess)
             this.isGameRunning = true;
             this.startTimer();
         },
@@ -159,10 +159,12 @@ window.chessTimer = () => {
         resetGame() {
             this.stopTimer();
             this.isGameRunning = false;
-            this.activePlayer = 1; // Set active player to 1 instead of null
+            this.activePlayer = 2; // Set active player to 1 instead of null
             this.resetTimers();
         },
 
+        // TODO start the game with White
+        // TODO allow different time config for each player
         // Add a new method to return to the configuration screen
         backToConfig() {
             this.stopTimer();
