@@ -14,7 +14,7 @@ A customizable chess clock and timer application for tracking game time. Perfect
 
 ### Mobile View
 
-![Mobile Preview](./public/preview_mobile.png)
+<img alt="Mobile Preview" src="./public/preview_mobile.png" width="400px"/>
 
 ## ✨ Features
 
@@ -33,19 +33,19 @@ Try it now: [Chess Clock Timer](https://vzsoares.github.io/chess-timer-clock/)
 
 1. **Configure Time Settings**:
 
-    - Set initial time for both players
-    - Choose increment or delay if desired
-    - Select any additional options
+   - Set initial time for both players
+   - Choose increment or delay if desired
+   - Select any additional options
 
 2. **Start the Clock**:
 
-    - Press the start button or spacebar
-    - Tap your timer after making a move to switch to your opponent's time
+   - Press the start button or spacebar
+   - Tap your timer after making a move to switch to your opponent's time
 
 3. **During Play**:
-    - Pause/resume as needed
-    - Reset the clock for a new game
-    - Adjust settings at any time
+   - Pause/resume as needed
+   - Reset the clock for a new game
+   - Adjust settings at any time
 
 ### Desktop Controls
 
