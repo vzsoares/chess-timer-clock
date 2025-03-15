@@ -163,6 +163,14 @@ window.chessTimer = () => {
             this.resetTimers();
         },
 
+        // Add a new method to return to the configuration screen
+        backToConfig() {
+            this.stopTimer();
+            this.isGameRunning = false;
+            this.isGameStarted = false; // This will show the config screen again
+            this.activePlayer = null;
+        },
+
         pauseResumeGame() {
             if (this.isGameRunning) {
                 this.stopTimer();
