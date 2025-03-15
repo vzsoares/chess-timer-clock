@@ -4,7 +4,7 @@
     "description": "",
     "scripts": {
         "dev": "cd src && vite",
-        "build": "cd src && vite build --base='/chess-clock-timer' --outDir ../dist",
+        "build": "cd src && vite build --base='/chess-timer-clock' --outDir ../dist",
         "preview": "cd src && vite preview --outDir ../dist",
         "test": "jest"
     },
