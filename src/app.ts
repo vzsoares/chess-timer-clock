@@ -73,6 +73,9 @@ window.chessTimer = () => {
         startGame() {
             this.resetTimers();
             this.isGameStarted = true;
+            this.activePlayer = 1; // Start with player 1 (typically white in chess)
+            this.isGameRunning = true;
+            this.startTimer();
         },
 
         resetGame() {
