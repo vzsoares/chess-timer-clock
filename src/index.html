@@ -191,15 +191,20 @@
             </div>
 
             <!-- Game Screen -->
-            <div x-show="isGameStarted" class="h-full flex flex-col">
+            <div
+                x-show="isGameStarted"
+                class="h-full flex flex-col md:flex-row"
+            >
                 <!-- Player 1 (Black) -->
                 <button
                     @click="toggleTurn(1)"
                     :class="{'bg-gray-900': activePlayer !== 1, 'bg-gray-800': activePlayer === 1}"
-                    class="flex-1 flex items-center justify-center transition-all duration-300 touch-manipulation"
+                    class="flex-1 flex items-center justify-center transition-all duration-300 touch-manipulation md:relative"
                     :disabled="!isGameRunning || activePlayer === 2"
                 >
-                    <div class="transform rotate-180">
+                    <div
+                        class="transform md:transform-none md:rotate-0 rotate-180"
+                    >
                         <div
                             class="text-6xl md:text-8xl font-bold"
                             x-text="formatTime(player1Time)"
@@ -207,9 +212,9 @@
                     </div>
                 </button>
 
-                <!-- Control Bar -->
+                <!-- Control Bar - For mobile (stacked layout) -->
                 <div
-                    class="bg-gray-800 flex items-center justify-between p-3 md:p-4 shadow-lg"
+                    class="bg-gray-800 flex md:hidden items-center justify-between p-3 md:p-4 shadow-lg"
                 >
                     <button
                         @click="resetGame"
@@ -246,6 +251,48 @@
                             x-text="activePlayer === 1 ? 'BLACK' : 'WHITE'"
                             class="font-bold"
                         ></span>
+                    </div>
+                </div>
+
+                <!-- Control Bar - For desktop (centered) -->
+                <div
+                    class="hidden md:flex flex-col justify-center items-center bg-gray-800 px-6 py-8 shadow-lg z-10"
+                >
+                    <!-- Player indicator - Top -->
+                    <div class="mb-6 px-4 py-2 rounded bg-gray-700">
+                        <span
+                            x-text="activePlayer === 1 ? 'BLACK' : 'WHITE'"
+                            class="font-bold"
+                        ></span>
+                    </div>
+
+                    <div class="flex flex-col gap-4">
+                        <button
+                            @click="resetGame"
+                            class="bg-gray-700 hover:bg-gray-600 p-3 rounded-full"
+                        >
+                            <i class="fas fa-undo text-xl"></i>
+                        </button>
+
+                        <button
+                            @click="pauseResumeGame"
+                            class="bg-gray-700 hover:bg-gray-600 p-3 rounded-full"
+                        >
+                            <i
+                                :class="isGameRunning ? 'fa-pause' : 'fa-play'"
+                                class="fas text-xl"
+                            ></i>
+                        </button>
+
+                        <button
+                            @click="toggleFullscreen"
+                            class="bg-gray-700 hover:bg-gray-600 p-3 rounded-full"
+                        >
+                            <i
+                                :class="isFullscreen ? 'fa-compress' : 'fa-expand'"
+                                class="fas text-xl"
+                            ></i>
+                        </button>
                     </div>
                 </div>
 
