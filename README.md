@@ -6,6 +6,16 @@
 
 A customizable chess clock and timer application for tracking game time. Perfect for chess players of all levels who need a reliable, easy-to-use timer with flexible time control options.
 
+## 📱 Preview
+
+### Desktop View
+
+![Desktop Preview](./public/preview_desktop.png)
+
+### Mobile View
+
+![Mobile Preview](./public/preview_mobile.png)
+
 ## ✨ Features
 
 - **Multiple Time Control Modes**: Support for various chess time formats (classical, rapid, blitz, etc.)
@@ -36,6 +46,21 @@ Try it now: [Chess Clock Timer](https://vzsoares.github.io/chess-timer-clock/)
     - Pause/resume as needed
     - Reset the clock for a new game
     - Adjust settings at any time
+
+### Desktop Controls
+
+- **Space Bar**: Start/Pause the timer
+- **Left Arrow Key**: Switch to left player's time
+- **Right Arrow Key**: Switch to right player's time
+- **R Key**: Reset the clock
+- **Mouse Click**: Click on a player's side to switch to the other player's time
+
+### Mobile Controls
+
+- **Tap**: Tap on a player's timer area to switch to the other player's time
+- **Control Buttons**: Use on-screen buttons for start, pause, and reset functions
+- **Rotate Device**: Turn your device horizontally for optimal viewing experience
+- **Settings Menu**: Access the gear icon to adjust time controls
 
 ## 🔧 Development
 
