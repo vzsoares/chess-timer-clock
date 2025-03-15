@@ -129,7 +129,9 @@ window.chessTimer = () => {
                     this.wakeLock = await navigator.wakeLock.request("screen");
                 }
             } catch (err) {
-                console.log(`Wake Lock error: ${err.name}, ${err.message}`);
+                if (err instanceof Error) {
+                    console.log(`Wake Lock error: ${err.name}, ${err.message}`);
+                }
             }
         },
 
@@ -174,24 +176,30 @@ window.chessTimer = () => {
         toggleTurn(player: number) {
             if (!this.isGameStarted) return;
 
+            // Return if the player is not the active player (can't press opponent's button)
+            if (this.activePlayer !== player) {
+                return;
+            }
+
+            const now = Date.now();
             // Add debounce to prevent accidental double taps on mobile
             // Only process taps that are at least 300ms apart
-            const now = Date.now();
             if (now - this.lastMoveTime < 300) {
                 return;
             }
 
-            // If a player is already active, add increment to their time
-            if (this.activePlayer && this.isGameRunning) {
+            // Add increment to the current player's time before switching
+            if (this.isGameRunning) {
                 if (this.activePlayer === 1) {
                     this.player1Time += this.increment * 1000;
+                    // Switch to player 2
+                    this.activePlayer = 2;
                 } else {
                     this.player2Time += this.increment * 1000;
+                    // Switch to player 1
+                    this.activePlayer = 1;
                 }
             }
-
-            // Switch active player
-            this.activePlayer = player;
 
             // Start the timer if it's not running
             if (!this.isGameRunning) {
