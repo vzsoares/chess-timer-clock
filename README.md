@@ -23,9 +23,8 @@ A customizable chess clock and timer application for tracking game time. Perfect
 - **Responsive Design**: Works seamlessly on desktops, tablets, and mobile devices
 - **Simple Interface**: Easy-to-use controls designed for minimal distraction during gameplay
 - **Visual & Audio Alerts**: Clear notifications when time is running low
-- **Offline Functionality**: No internet connection required after initial load
 
-## 🚀 Live Demo
+## 🚀 Live Webapp
 
 Try it now: [Chess Clock Timer](https://vzsoares.github.io/chess-timer-clock/)
 
@@ -33,25 +32,24 @@ Try it now: [Chess Clock Timer](https://vzsoares.github.io/chess-timer-clock/)
 
 1. **Configure Time Settings**:
 
-   - Set initial time for both players
-   - Choose increment or delay if desired
-   - Select any additional options
+    - Set initial time for both players
+    - Choose increment or delay if desired
+    - Select any additional options
 
 2. **Start the Clock**:
 
-   - Press the start button or spacebar
-   - Tap your timer after making a move to switch to your opponent's time
+    - Press the start button or spacebar
+    - Tap your timer after making a move to switch to your opponent's time
 
 3. **During Play**:
-   - Pause/resume as needed
-   - Reset the clock for a new game
-   - Adjust settings at any time
+
+    - Pause/resume as needed
+    - Reset the clock for a new game
+    - Adjust settings at any time
 
 ### Desktop Controls
 
-- **Space Bar**: Start/Pause the timer
-- **Left Arrow Key**: Switch to left player's time
-- **Right Arrow Key**: Switch to right player's time
+- **Space Bar**: Toggle player turn
 - **R Key**: Reset the clock
 - **Mouse Click**: Click on a player's side to switch to the other player's time
 
@@ -59,8 +57,7 @@ Try it now: [Chess Clock Timer](https://vzsoares.github.io/chess-timer-clock/)
 
 - **Tap**: Tap on a player's timer area to switch to the other player's time
 - **Control Buttons**: Use on-screen buttons for start, pause, and reset functions
-- **Rotate Device**: Turn your device horizontally for optimal viewing experience
-- **Settings Menu**: Access the gear icon to adjust time controls
+- **Rotate Device**: Turn your device vertically for optimal viewing experience
 
 ## 🔧 Development
 
