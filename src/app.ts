@@ -159,7 +159,7 @@ window.chessTimer = () => {
         resetGame() {
             this.stopTimer();
             this.isGameRunning = false;
-            this.activePlayer = null;
+            this.activePlayer = 1; // Set active player to 1 instead of null
             this.resetTimers();
         },
 
