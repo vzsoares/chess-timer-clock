@@ -15,14 +15,20 @@ window.chessTimer = () => {
         isGameStarted: false,
         isGameRunning: false,
         activePlayer: null,
-        initialMinutes: 5,
-        increment: 2, // seconds
+        // Replace single initialMinutes with separate configs for each player
+        player1Minutes: 5,
+        player2Minutes: 5,
+        // Separate increments for each player
+        player1Increment: 2, // seconds
+        player2Increment: 2, // seconds
         player1Time: 0, // milliseconds
         player2Time: 0, // milliseconds
         timerInterval: null as number | null,
         isFullscreen: false,
         lastMoveTime: 0,
         wakeLock: null,
+        // Add a flag for linked/independent time controls
+        independentTimeControls: false,
 
         init() {
             this.resetTimers();
@@ -144,14 +150,15 @@ window.chessTimer = () => {
         },
 
         resetTimers() {
-            this.player1Time = this.initialMinutes * 60 * 1000;
-            this.player2Time = this.initialMinutes * 60 * 1000;
+            // Use individual time settings for each player
+            this.player1Time = this.player1Minutes * 60 * 1000;
+            this.player2Time = this.player2Minutes * 60 * 1000;
         },
 
         startGame() {
             this.resetTimers();
             this.isGameStarted = true;
-            this.activePlayer = 2; // Start with player 1 (typically white in chess)
+            this.activePlayer = 2; // Start with player 2 (white in chess)
             this.isGameRunning = true;
             this.startTimer();
         },
@@ -182,6 +189,7 @@ window.chessTimer = () => {
             }
         },
 
+        // Modified toggleTurn to use player-specific increments
         toggleTurn(player: number) {
             if (!this.isGameStarted) return;
 
@@ -192,7 +200,6 @@ window.chessTimer = () => {
 
             const now = Date.now();
             // Add debounce to prevent accidental double taps on mobile
-            // Only process taps that are at least 300ms apart
             if (now - this.lastMoveTime < 300) {
                 return;
             }
@@ -200,11 +207,13 @@ window.chessTimer = () => {
             // Add increment to the current player's time before switching
             if (this.isGameRunning) {
                 if (this.activePlayer === 1) {
-                    this.player1Time += this.increment * 1000;
+                    // Use player1's specific increment
+                    this.player1Time += this.player1Increment * 1000;
                     // Switch to player 2
                     this.activePlayer = 2;
                 } else {
-                    this.player2Time += this.increment * 1000;
+                    // Use player2's specific increment
+                    this.player2Time += this.player2Increment * 1000;
                     // Switch to player 1
                     this.activePlayer = 1;
                 }
@@ -274,22 +283,80 @@ window.chessTimer = () => {
             }
         },
 
-        increaseTime() {
-            this.initialMinutes = Math.min(90, this.initialMinutes + 1);
-            this.resetTimers();
+        // Modified time control methods
+        increasePlayer1Time() {
+            this.player1Minutes = Math.min(90, this.player1Minutes + 1);
+            this.player1Time = this.player1Minutes * 60 * 1000;
+            if (!this.independentTimeControls) {
+                this.player2Minutes = this.player1Minutes;
+                this.player2Time = this.player2Minutes * 60 * 1000;
+            }
         },
 
-        decreaseTime() {
-            this.initialMinutes = Math.max(1, this.initialMinutes - 1);
-            this.resetTimers();
+        decreasePlayer1Time() {
+            this.player1Minutes = Math.max(1, this.player1Minutes - 1);
+            this.player1Time = this.player1Minutes * 60 * 1000;
+            if (!this.independentTimeControls) {
+                this.player2Minutes = this.player1Minutes;
+                this.player2Time = this.player2Minutes * 60 * 1000;
+            }
         },
 
-        increaseIncrement() {
-            this.increment = Math.min(30, this.increment + 1);
+        increasePlayer2Time() {
+            this.player2Minutes = Math.min(90, this.player2Minutes + 1);
+            this.player2Time = this.player2Minutes * 60 * 1000;
+            if (!this.independentTimeControls) {
+                this.player1Minutes = this.player2Minutes;
+                this.player1Time = this.player1Minutes * 60 * 1000;
+            }
         },
 
-        decreaseIncrement() {
-            this.increment = Math.max(0, this.increment - 1);
+        decreasePlayer2Time() {
+            this.player2Minutes = Math.max(1, this.player2Minutes - 1);
+            this.player2Time = this.player2Minutes * 60 * 1000;
+            if (!this.independentTimeControls) {
+                this.player1Minutes = this.player2Minutes;
+                this.player1Time = this.player1Minutes * 60 * 1000;
+            }
+        },
+
+        increasePlayer1Increment() {
+            this.player1Increment = Math.min(30, this.player1Increment + 1);
+            if (!this.independentTimeControls) {
+                this.player2Increment = this.player1Increment;
+            }
+        },
+
+        decreasePlayer1Increment() {
+            this.player1Increment = Math.max(0, this.player1Increment - 1);
+            if (!this.independentTimeControls) {
+                this.player2Increment = this.player1Increment;
+            }
+        },
+
+        increasePlayer2Increment() {
+            this.player2Increment = Math.min(30, this.player2Increment + 1);
+            if (!this.independentTimeControls) {
+                this.player1Increment = this.player2Increment;
+            }
+        },
+
+        decreasePlayer2Increment() {
+            this.player2Increment = Math.max(0, this.player2Increment - 1);
+            if (!this.independentTimeControls) {
+                this.player1Increment = this.player2Increment;
+            }
+        },
+
+        toggleIndependentTimeControls() {
+            this.independentTimeControls = !this.independentTimeControls;
+            if (!this.independentTimeControls) {
+                // Sync settings when going back to linked mode
+                // (Choose one player's settings - here we use player 1's)
+                this.player2Minutes = this.player1Minutes;
+                this.player2Time = this.player1Time;
+                this.player2Increment = this.player1Increment;
+            }
         },
 
         toggleFullscreen() {
