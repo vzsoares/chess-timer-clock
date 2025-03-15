@@ -41,6 +41,17 @@ window.chessTimer = () => {
                     "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no";
                 document.head.appendChild(meta);
             }
+            // Add event listener for beforeunload to confirm page navigation during active game
+            window.addEventListener("beforeunload", (e) => {
+                if (this.isGameRunning || this.isGameStarted) {
+                    // Standard way to show a confirmation dialog when leaving page
+                    e.preventDefault();
+                    // Custom message (note: most modern browsers show their own generic message)
+                    e.returnValue =
+                        "Game in progress. Are you sure you want to leave?";
+                    return "Game in progress. Are you sure you want to leave?";
+                }
+            });
 
             // Prevent screen dimming/sleep during active games
             this.setupWakeLock();
