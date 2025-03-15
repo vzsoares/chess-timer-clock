@@ -164,13 +164,20 @@ window.chessTimer = () => {
         },
 
         resetGame() {
+            // Add confirmation dialog before resetting
+            if (
+                this.isGameStarted &&
+                !confirm("Are you sure you want to reset the game?")
+            ) {
+                return; // Exit if user cancels the reset
+            }
+
             this.stopTimer();
             this.isGameRunning = false;
             this.activePlayer = 2; // Set active player to 1 instead of null
             this.resetTimers();
         },
 
-        // TODO allow different time config for each player
         // Add a new method to return to the configuration screen
         backToConfig() {
             this.stopTimer();
